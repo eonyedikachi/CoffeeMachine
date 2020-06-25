@@ -1,2 +1,2 @@
 # CoffeeMachine
-Coffee Machine that allow one create a variety of coffee
+Coffee Machine that allows one create a variety of coffee
