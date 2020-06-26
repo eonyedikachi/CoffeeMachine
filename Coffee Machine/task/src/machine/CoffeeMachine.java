@@ -1,18 +1,20 @@
 package machine;
 
+import java.lang.invoke.SwitchPoint;
 import java.util.Scanner;
 
 public class CoffeeMachine {
     static Scanner input = new Scanner(System.in);
 
+    static int water = 400, milk = 540, cofBeans = 120, dispCups = 9, money = 550;
+
+
+
     public static void main(String[] args) {
-
-        //calCoffee();
-
-        cupsOfCoffee();
-
+        coffee();
     }
 
+    //Stage 2 Task
     static void calCoffee() {
         int numOfCups, water = 200, milk = 50, cofBeans = 15;
 
@@ -28,8 +30,9 @@ public class CoffeeMachine {
                 +milk + " ml of milk\n" +
                 +cofBeans + " g of coffee beans\n");
     }
+    //End of Stage 2 Task
 
-
+    //Stage 3 Task
     static void cupsOfCoffee() {
 
         //Declare quantity of ingredient required to make a cup of Coffee
@@ -79,4 +82,103 @@ public class CoffeeMachine {
         }
 
     }
+    //End of Stage 3 Task
+
+    //Stage 4 Task
+    static void coffee(){
+
+        showInfo();
+        System.out.println("");
+
+        System.out.println("Write action (buy, fill, take): ");
+        String action = input.next();
+
+        switch (action){
+            case "buy":
+                buy();
+            break;
+
+            case "fill":
+                fill();
+                break;
+
+            case "take":
+                take();
+                break;
+        }
+
+        System.out.println("");
+        showInfo();
+
+
+    }
+
+    static void showInfo(){
+        System.out.println("The coffee machine has:\n" +
+                 water + " of water\n" +
+                milk + " of milk\n" +
+                cofBeans + " of coffee beans\n" +
+                dispCups +" of disposable cups\n" +
+                money + " of money");
+    }
+
+    static void buy(){
+
+        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+        int buy = input.nextInt();
+        switch (buy){
+            case 1:{
+            water -= 250;
+            cofBeans -= 16;
+            money += 4;
+            dispCups -= 1;
+         }break;
+            case 2: {
+                water -= 350;
+                cofBeans -= 20;
+                milk -= 75;
+                money += 7;
+                dispCups -= 1;
+            }break;
+            case 3: {
+                water -= 200;
+                cofBeans -= 12;
+                milk -= 100;
+                money += 6;
+                dispCups -= 1;
+            }break;
+        }
+
+    }
+
+    static void fill(){
+
+        int waterFill, milkFill, cofBeansFill, dispcupsFill;
+
+        System.out.println("Write how many ml of water do you want to add:");
+        waterFill = input.nextInt();
+
+        System.out.println("Write how many ml of milk do you want to add:");
+        milkFill = input.nextInt();
+
+        System.out.println("Write how many grams of coffee beans do you want to add:");
+        cofBeansFill = input.nextInt();
+
+        System.out.println("Write how many disposable cups of coffee do you want to add:");
+        dispcupsFill = input.nextInt();
+
+        water += waterFill;
+        milk += milkFill;
+        cofBeans += cofBeansFill;
+        dispCups += dispcupsFill;
+    }
+
+    static void take(){
+
+        System.out.println("I gave you " + money);
+        money -= money;
+
+    }
+    //End of Stage 4 Task
+
 }
