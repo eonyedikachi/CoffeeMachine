@@ -1,21 +1,57 @@
 package machine;
 
-import java.lang.invoke.SwitchPoint;
 import java.util.Scanner;
 
 public class CoffeeMachine {
-    static Scanner input = new Scanner(System.in);
+    static Scanner input;
 
     static int water = 400, milk = 540, cofBeans = 120, dispCups = 9, money = 550;
-
-
+     static boolean confirmCheck;
 
     public static void main(String[] args) {
-        coffee();
+
+        //coffee();
+
+        input = new Scanner(System.in);
+
+        boolean exit = false;
+
+        //execute until user enters "exit"
+
+        do{
+
+            System.out.println("Write action (buy, fill, take, remaining, exit):");
+            String action = input.next();
+
+            switch (action){
+                case "buy":
+                    buy();
+                    break;
+
+                case "fill":
+                    fill();
+                    break;
+
+                case "take":
+                    take();
+                    break;
+
+                case "remaining":
+                    remaining();
+                    break;
+                case "exit":
+                    exit = true;
+                    break;
+            }
+            System.out.println("");
+
+        } while(!exit);
+
     }
 
     //Stage 2 Task
     static void calCoffee() {
+        input = new Scanner(System.in);
         int numOfCups, water = 200, milk = 50, cofBeans = 15;
 
         System.out.println("Write how many cups of coffee you will need:");
@@ -29,11 +65,13 @@ public class CoffeeMachine {
                 +water + " ml of water\n" +
                 +milk + " ml of milk\n" +
                 +cofBeans + " g of coffee beans\n");
+
     }
     //End of Stage 2 Task
 
     //Stage 3 Task
     static void cupsOfCoffee() {
+        input = new Scanner(System.in);
 
         //Declare quantity of ingredient required to make a cup of Coffee
         final int waterRequired = 200, milkRequired = 50, cofBeansRequired = 15;
@@ -80,78 +118,148 @@ public class CoffeeMachine {
         } else {
             System.out.print("Yes, I can make that amount of coffee");
         }
-
     }
     //End of Stage 3 Task
 
     //Stage 4 Task
-    static void coffee(){
+//    static void coffee(){
+//        input = new Scanner(System.in);
+//
+//        boolean exit = false;
+//
+//        //execute until user enters "exit"
+//
+//        do{
+//
+//        System.out.println("Write action (buy, fill, take, remaining, exit):");
+//        String action = input.next();
+//
+//        switch (action){
+//            case "buy":
+//                buy();
+//            break;
+//
+//            case "fill":
+//                fill();
+//                break;
+//
+//            case "take":
+//                take();
+//                break;
+//
+//            case "remaining":
+//                remaining();
+//                break;
+//            case "exit":
+//                exit = true;
+//                break;
+//        }
+//        System.out.println("");
+//
+//        } while(!exit);
+//
+//
+//    }
 
-        showInfo();
-        System.out.println("");
+    //Display Coffee Resources Remaining
+    static void remaining(){
+        System.out.println();
 
-        System.out.println("Write action (buy, fill, take): ");
-        String action = input.next();
-
-        switch (action){
-            case "buy":
-                buy();
-            break;
-
-            case "fill":
-                fill();
-                break;
-
-            case "take":
-                take();
-                break;
+        if(money >0) {
+            System.out.println("The coffee machine has:\n" +
+                    water + " of water\n" +
+                    milk + " of milk\n" +
+                    cofBeans + " of coffee beans\n" +
+                    dispCups + " of disposable cups\n$" +
+                    money + " of money");
+        } else{
+            System.out.println("The coffee machine has:\n" +
+                    water + " of water\n" +
+                    milk + " of milk\n" +
+                    cofBeans + " of coffee beans\n" +
+                    dispCups + " of disposable cups\n" +
+                    money + " of money");
         }
-
-        System.out.println("");
-        showInfo();
-
-
+        System.out.println();
     }
 
-    static void showInfo(){
-        System.out.println("The coffee machine has:\n" +
-                 water + " of water\n" +
-                milk + " of milk\n" +
-                cofBeans + " of coffee beans\n" +
-                dispCups +" of disposable cups\n" +
-                money + " of money");
-    }
-
+    //Buy Coffee
     static void buy(){
 
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-        int buy = input.nextInt();
+        input = new Scanner(System.in);
+
+        int waterRequired, milkRequired, cofBeansRequired, dispcupsRequired;
+        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
+        String buy = input.next();
+
+        buy = buy.trim();// To remove possible white spaces
         switch (buy){
-            case 1:{
-            water -= 250;
-            cofBeans -= 16;
-            money += 4;
-            dispCups -= 1;
+            case "1":{
+            waterRequired = 250;
+            cofBeansRequired = 16;
+            dispcupsRequired = 1;
+            milkRequired = milk;
+
+            //Check if Resource is enough to make Espresso
+                confirmCheck = checkResources(waterRequired, milkRequired, cofBeansRequired, dispcupsRequired);
+
+                if(confirmCheck){
+                    water -= waterRequired;
+                    cofBeans -= cofBeansRequired;
+                    dispCups -= dispcupsRequired;
+                    money += 4;
+                }
          }break;
-            case 2: {
-                water -= 350;
-                cofBeans -= 20;
-                milk -= 75;
-                money += 7;
-                dispCups -= 1;
+            case "2": {
+                waterRequired = 350;
+                cofBeansRequired = 20;
+                milkRequired = 75;
+                dispcupsRequired =  1;
+
+                //Check if Resource is enough to make Latte
+                confirmCheck = checkResources(waterRequired, milkRequired, cofBeansRequired, dispcupsRequired);
+
+                if(confirmCheck){
+                    water -= waterRequired;
+                    cofBeans -= cofBeansRequired;
+                    milk -= milkRequired;
+                    dispCups -= 1;
+                    money += 7;
+                }
             }break;
-            case 3: {
-                water -= 200;
-                cofBeans -= 12;
-                milk -= 100;
-                money += 6;
-                dispCups -= 1;
+            case "3": {
+                waterRequired = 200;
+                cofBeansRequired = 12;
+                milkRequired = 100;
+                dispcupsRequired = 1;
+
+                //Check if Resource is enough to make Cappuccino
+                confirmCheck = checkResources(waterRequired, milkRequired, cofBeansRequired, dispcupsRequired);
+
+                if(confirmCheck){
+                    water -= waterRequired;
+                    cofBeans -= cofBeansRequired;
+                    milk -= milkRequired;
+                    dispCups -= dispcupsRequired;
+                    money += 6;
+                }
             }break;
+            case "back":
+            default: {
+                break;
+            }
         }
+
+
+        System.out.println();
+
 
     }
 
+    //Refill Coffee Resources
     static void fill(){
+
+        input = new Scanner(System.in);
 
         int waterFill, milkFill, cofBeansFill, dispcupsFill;
 
@@ -171,14 +279,49 @@ public class CoffeeMachine {
         milk += milkFill;
         cofBeans += cofBeansFill;
         dispCups += dispcupsFill;
+
+        System.out.println();
+
     }
 
-    static void take(){
 
-        System.out.println("I gave you " + money);
-        money -= money;
+    //Take money in Coffee Machine Storage
+    static void take(){
+        System.out.println();
+        System.out.println("I gave you $" + money);
+        money =0;
+        System.out.println("");
+    }
+
+    static boolean checkResources(int waterRequired, int milkRequired, int cofBeansRequired, int dispcupsRequired) {
+
+        if (water >= waterRequired) {
+            if (milk >= milkRequired) {
+                if (cofBeans >= cofBeansRequired) {
+                    if(dispCups >= dispcupsRequired){
+                    System.out.println("I have enough resources, making you a coffee!");
+                    return true;
+                    }
+                    else {
+                    System.out.println("Sorry, not enough disposable cups!");
+                    return false;
+                    }
+                }
+                else{
+                        System.out.println("Sorry, not enough coffee beans!");
+                        return false;
+                    }
+
+            } else {
+                System.out.println("Sorry, not enough milk!");
+                return false;
+            }
+        } else {
+            System.out.println("Sorry, not enough water!");
+            return false;
+        }
 
     }
     //End of Stage 4 Task
-
 }
+
