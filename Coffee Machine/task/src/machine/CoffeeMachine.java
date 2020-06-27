@@ -11,6 +11,7 @@ public class CoffeeMachine {
     public static void main(String[] args) {
 
         //coffee();
+       
 
         input = new Scanner(System.in);
 
@@ -122,45 +123,6 @@ public class CoffeeMachine {
     //End of Stage 3 Task
 
     //Stage 4 Task
-//    static void coffee(){
-//        input = new Scanner(System.in);
-//
-//        boolean exit = false;
-//
-//        //execute until user enters "exit"
-//
-//        do{
-//
-//        System.out.println("Write action (buy, fill, take, remaining, exit):");
-//        String action = input.next();
-//
-//        switch (action){
-//            case "buy":
-//                buy();
-//            break;
-//
-//            case "fill":
-//                fill();
-//                break;
-//
-//            case "take":
-//                take();
-//                break;
-//
-//            case "remaining":
-//                remaining();
-//                break;
-//            case "exit":
-//                exit = true;
-//                break;
-//        }
-//        System.out.println("");
-//
-//        } while(!exit);
-//
-//
-//    }
-
     //Display Coffee Resources Remaining
     static void remaining(){
         System.out.println();
